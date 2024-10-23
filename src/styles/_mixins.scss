@@ -1,0 +1,25 @@
+@mixin flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin title {
+    font-weight: 700;
+    font-size: 42px;
+    text-transform: uppercase;
+}
+
+@mixin respond-to($breakpoint) {
+    @if $breakpoint ==tablet {
+      @media (max-width: 875px) {
+        @content;
+      }
+    }
+  
+    @else if $breakpoint ==mobile {
+      @media (max-width: 480px) {
+        @content;
+      }
+    }
+  }

@@ -1,0 +1,575 @@
+@use "var";
+@use "font";
+@use "mixins";
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    background-color: var.$bg-color;
+    font-family: var.$font-family;
+    color: var.$light;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1720px;
+    margin: 0 auto;
+
+    @include mixins.respond-to(tablet) {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    @include mixins.respond-to(mobile) {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+.sidenav {
+    display: none;
+
+    @include mixins.respond-to(tablet) {
+        display: block;
+        background-color: var.$bg-color;
+        position: relative;
+        padding: 59px 0 0 49px;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 116px;
+        right: -100%;
+        transition: right 0.3s ease;
+        z-index: 999;
+    }
+
+    @include mixins.respond-to(mobile) {
+        display: none;
+    }
+
+    &__menu {
+        list-style: none;
+
+        @include mixins.respond-to(mobile) {
+            margin-bottom: 51px;
+        }
+
+        & li {
+            font-weight: 700;
+            font-size: 36px;
+            line-height: 150%;
+            font-family: var.$font-family;
+            text-align: left;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+
+            @include mixins.respond-to(mobile) {
+                font-size: 20px;
+            }
+        }
+
+        & li:last-child {
+            margin-bottom: 0;
+        }
+
+        & li a {
+            color: transparent;
+            -webkit-text-stroke: 1px #808080;
+        }
+    }
+
+    &.active {
+        right: 0;
+    }
+
+    &.mobile {
+        @include mixins.respond-to(tablet) {
+            display: none;
+        }
+
+        @include mixins.respond-to(mobile) {
+            display: block;
+            width: 100%;
+            right: -100%;
+            top: 60px;
+            padding-top: 0;
+            padding-left: 18px;
+            display: block;
+            background-color: var.$bg-color;
+            position: relative;
+            height: 100%;
+            position: fixed;
+            transition: right 0.3s ease;
+            z-index: 999;
+        }
+
+        & .nav__buttons {
+            margin-left: 0;
+            width: 100%;
+            flex-direction: column;
+            gap: 6px;
+
+            & .button {
+                background-image: url(/src/images/menu-mobile-button.svg);
+                width: 330px;
+                text-align: center;
+            }
+
+            & svg {
+                display: none;
+            }
+        }
+    }
+    &.active {
+        right: 0;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Скрываем по умолчанию */
+}
+
+.overlay.active {
+    display: block; /* Показываем слой при открытом меню */
+}
+
+.header {
+    height: auto;
+    padding: 28px 0;
+
+    &.desktop {
+        @include mixins.respond-to(tablet) {
+            display: none;
+        }
+    }
+    &.tablet {
+        display: none;
+        @include mixins.respond-to(tablet) {
+            display: block;
+            padding: 30px 51px 27px 49px;
+
+            & .button {
+                width: 202px;
+                background-image: url(/src/images/button-tablet.svg);
+                margin-left: -20px;
+            }
+        }
+
+        @include mixins.respond-to(mobile) {
+            padding: 3px 4px 0px 0px;
+            .nav__buttons {
+                display: none;
+            }
+        }
+    }
+}
+
+.nav {
+    &__menu {
+        height: 60px;
+        @include mixins.flex;
+
+        @include mixins.respond-to(tablet) {
+            width: 100%;
+            gap: 91px;
+        }
+    }
+
+    &__logo {
+        width: 156px;
+        height: 60px;
+        @include mixins.respond-to(tablet) {
+            margin-left: -5px;
+        }
+
+        @include mixins.respond-to(mobile) {
+            width: 112px;
+            height: 38px;
+            margin-right: 10px;
+        }
+
+       
+    }
+
+    &__list {
+        width: 1060px;
+        @include mixins.flex;
+        gap: 42px;
+
+        & ul {
+            @include mixins.flex;
+            gap: 42px;
+            list-style: none;
+            & li a {
+                color: var.$light;
+                font-family: var.$font-family;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 150%;
+                text-transform: uppercase;
+
+                &:hover {
+                    color: var.$accent;
+                }
+            }
+        }
+    }
+
+    &__buttons {
+        @include mixins.flex;
+        gap: 12px;
+        @include mixins.respond-to(tablet) {
+            margin-left: -5px;
+        }
+    }
+
+    &__phone {
+        width: 92px;
+        height: 60px;
+        transition: 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        @include mixins.respond-to(mobile) {
+            width: 100%;
+        }
+    }
+}
+
+.buttons-block {
+    display: flex;
+    align-items: center;
+    transition: 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+        
+    .button {
+        border: none;
+        background-color: transparent;
+        background-image: url(/src/images/button.svg);
+        background-repeat: no-repeat;
+        width: 283px;
+        height: 60px;
+        font-family: var.$font-family;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 150%;
+        color: var.$light;
+        text-transform: uppercase;
+        cursor: pointer;
+        
+    }
+
+    & svg {
+        margin-left: -15px;
+
+        @include mixins.respond-to(mobile) {
+            height: 46px;
+            margin-left: -21px;
+        }
+    }
+}
+
+.main {
+    height: 959px;
+
+    @include mixins.respond-to(tablet) {
+        height: 907px;
+    }
+
+    @include mixins.respond-to(mobile) {
+        height: 495px;
+    }
+
+    &__bg {
+        height: 959px;
+        padding-top: 598px;
+        padding-bottom: 96px;
+        background-image: url(/src/images/main-bg.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 60px 60px 0 0;
+        animation: moveBackground 10s linear infinite;
+
+        @include mixins.respond-to(tablet) {
+            height: 907px;
+            padding-left: 49px;
+            padding-top: 549px;
+        }
+        @include mixins.respond-to(mobile) {
+            padding-top: 272px;
+            padding-left: 0;
+            height: 495px;
+        }
+    }
+
+    
+
+    &__info {
+        width: 562px;
+        height: 266px;
+
+        @include mixins.respond-to(tablet) {
+            width: 510px;
+        }
+
+        @include mixins.respond-to(mobile) {
+            width: 100%;
+        }
+    }
+
+    &__title {
+        width: 100%;
+        @include mixins.title;
+        margin-bottom: 39px;
+        @include mixins.respond-to(tablet) {
+            font-size: 38px;
+        }
+
+        @include mixins.respond-to(mobile) {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    }
+
+    &__text {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 150%;
+        opacity: 0.79;
+        margin-bottom: 39px;
+        @include mixins.respond-to(tablet) {
+            width: 463px;
+        }
+
+        @include mixins.respond-to(mobile) {
+            width: 90%;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .button {
+        @include mixins.respond-to(tablet) {
+            width: 289px;
+        }
+
+        @include mixins.respond-to(mobile) {
+            background-image: url(/src/images/button-mobile.svg);
+            width: 228px;
+            height: 46px;
+        }
+    }
+}
+
+.cards {
+    min-height: auto;
+    padding-top: 134px;
+    padding-bottom: 256px;
+
+    @include mixins.respond-to(tablet) {
+        padding-top: 43px;
+    }
+
+    @include mixins.respond-to(mobile) {
+        padding-top: 54px;
+    }
+
+    &__title {
+        @include mixins.title;
+        margin-bottom: 53px;
+        @include mixins.respond-to(tablet) {
+            padding-left: 7px;
+            margin-bottom: 39px;
+        }
+
+        @include mixins.respond-to(mobile) {
+            font-size: 20px;
+            padding-left: 0;
+            margin-bottom: 30px;
+        }
+    }
+
+    &__box {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 30px;
+        margin-bottom: 60px;
+
+        @include mixins.respond-to(tablet) {
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 24px;
+        }
+
+        @include mixins.respond-to(mobile) {
+            width: 100%;
+            grid-template-columns: repeat(1, 1fr);
+            row-gap: 20px;
+        }
+
+        &:hover {
+            .cards-item {
+                transform: scale(0.9);
+                filter: blur(5px) grayscale(1);
+            }
+            .cards-item:hover {
+                transform: scale(1.1);
+                filter: blur(0px) grayscale(0);
+                z-index: 999;
+            }
+
+        }
+    }
+
+    & .buttons-block {
+        justify-content: center;
+
+        & .button {
+            @include mixins.respond-to(mobile) {
+                width: 295px;
+            }
+        }
+
+        & svg {
+            height: 60px;
+        }
+    }
+}
+
+.cards-item {
+    width: 320px;
+    height: 621px;
+    background-color: var.$light;
+    color: var.$dark-text;
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease-in-out;
+
+    @include mixins.respond-to(tablet) {
+        width: 334px;
+    }
+    @include mixins.respond-to(mobile) {
+        width: 98%;
+    }
+
+    &__img {
+        margin-bottom: 25px;
+        @include mixins.respond-to(tablet) {
+            height: 185px;
+        }
+    }
+
+    &__info {
+        padding: 0 24px;
+    }
+
+    &__title {
+        font-family: var.$second-family;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 186%;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    &__subtitle {
+        width: 254px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 162%;
+        margin-bottom: 20px;
+    }
+    &__text {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 171%;
+        color: var.$gray-text;
+        margin-bottom: 20px;
+
+        @include mixins.respond-to(tablet) {
+            margin-bottom: 45px;
+        }
+    }
+
+    &__post {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 200%;
+        color: var.$gray-text;
+        margin-bottom: 25px;
+
+        @include mixins.respond-to(tablet) {
+            font-size: 12px;
+        }
+
+        & span {
+            font-weight: 700;
+        }
+    }
+
+    &__button {
+        width: 100%;
+        height: 50px;
+        border: none;
+        background-color: var.$dark-text;
+        font-family: var.$second-family;
+        font-weight: 600;
+        font-size: 14px;
+        color: var.$light;
+        cursor: pointer;
+    }
+}
+
+@keyframes moveBackground {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
