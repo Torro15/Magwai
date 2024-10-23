@@ -46,10 +46,16 @@ li {
     max-width: 1720px;
     margin: 0 auto;
 
+    @include mixins.respond-to(laptop) {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
     @include mixins.respond-to(tablet) {
         padding-left: 40px;
         padding-right: 40px;
     }
+
 
     @include mixins.respond-to(mobile) {
         padding-left: 16px;
@@ -175,6 +181,7 @@ li {
     padding: 28px 0;
 
     &.desktop {
+
         @include mixins.respond-to(tablet) {
             display: none;
         }
@@ -203,8 +210,12 @@ li {
 
 .nav {
     &__menu {
-        height: 60px;
+        min-height: 60px;
         @include mixins.flex;
+        @include mixins.respond-to(laptop) {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
         @include mixins.respond-to(tablet) {
             width: 100%;
@@ -323,6 +334,7 @@ li {
     }
 
     &__bg {
+        
         height: 959px;
         padding-top: 598px;
         padding-bottom: 96px;
@@ -437,8 +449,17 @@ li {
         gap: 30px;
         margin-bottom: 60px;
 
+        @include mixins.respond-to(laptop) {
+            width: 100%;
+            grid-template-columns: repeat(3, 1fr);
+            justify-items: center;
+            column-gap: 25px;
+            row-gap: 30px;
+        }
+
         @include mixins.respond-to(tablet) {
             grid-template-columns: repeat(2, 1fr);
+            justify-items: center;
             column-gap: 20px;
             row-gap: 24px;
         }
@@ -449,18 +470,7 @@ li {
             row-gap: 20px;
         }
 
-        &:hover {
-            .cards-item {
-                transform: scale(0.9);
-                filter: blur(5px) grayscale(1);
-            }
-            .cards-item:hover {
-                transform: scale(1.1);
-                filter: blur(0px) grayscale(0);
-                z-index: 999;
-            }
 
-        }
     }
 
     & .buttons-block {
@@ -485,6 +495,12 @@ li {
     color: var.$dark-text;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.1);
+        filter: blur(0px) grayscale(0);
+        z-index: 999;
+    }
 
     @include mixins.respond-to(tablet) {
         width: 334px;

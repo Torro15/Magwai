@@ -11,15 +11,22 @@
 }
 
 @mixin respond-to($breakpoint) {
-    @if $breakpoint ==tablet {
-      @media (max-width: 875px) {
+    @if $breakpoint ==laptop {
+      @media (min-width: 1021px) and (max-width: 1500px) {
         @content;
       }
     }
   
-    @else if $breakpoint ==mobile {
-      @media (max-width: 480px) {
+    @else if $breakpoint ==tablet {
+      @media (min-width: 500px) and (max-width: 1020px) {
         @content;
       }
     }
+
+    @else if $breakpoint ==mobile {
+      @media (max-width: 499px) {
+        @content;
+      }
+    }
+    
   }
