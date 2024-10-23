@@ -181,11 +181,11 @@ li {
     padding: 28px 0;
 
     &.desktop {
-
         @include mixins.respond-to(tablet) {
             display: none;
         }
     }
+
     &.tablet {
         display: none;
         @include mixins.respond-to(tablet) {
@@ -218,6 +218,8 @@ li {
         }
 
         @include mixins.respond-to(tablet) {
+            flex-wrap: nowrap;
+            justify-content: space-between;
             width: 100%;
             gap: 91px;
         }
@@ -459,7 +461,6 @@ li {
 
         @include mixins.respond-to(tablet) {
             grid-template-columns: repeat(2, 1fr);
-            justify-items: center;
             column-gap: 20px;
             row-gap: 24px;
         }
